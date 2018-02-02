@@ -1,3 +1,21 @@
+# TODO
+
+* [x] Handle parameters "in" "body" with name "body" as "input"
+  * how to handle pathname params with a body like update username
+  * Could just pass through also? ie ignore body param
+  * Rename body to input
+* [ ] Handle enum string types ie Order and Pet Status
+
+  ```
+  status:
+    type: string
+    description: Order Status
+    enum:
+    - placed
+    - approved
+    - delivered
+  ```
+
 # Swagger2GraphQL
 
 Swagger2GraphQL converts your existing Swagger schema to GraphQL types where resolvers perform HTTP calls to certain real endpoints.
