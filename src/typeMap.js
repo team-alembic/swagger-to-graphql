@@ -30,12 +30,12 @@ const getTypeNameFromRef = (ref: string, isInputType: boolean) => {
 const getExistingType = (ref: string, isInputType: boolean) => {
   const baseTypeName = getTypeNameFromRef(ref, isInputType);
   const typeName = baseTypeName + (isInputType ? "Input" : "");
-  console.log({ ref, isInputType, typeName });
+  // console.log({ ref, isInputType, typeName });
   const allSchema = getSchema();
-  console.log({ allSchema, __allTypes });
+  // console.log({ allSchema, __allTypes });
   if (!__allTypes[typeName]) {
     const schema = allSchema.definitions[baseTypeName];
-    console.log({ typeName, schema });
+    // console.log({ typeName, schema });
     if (!schema) {
       throw new Error(`Definition ${baseTypeName} was not found in schema`);
     }
@@ -65,7 +65,7 @@ export const createGQLObject = (
   }
 
   const reference = getRefProp(jsonSchema);
-  console.log({ reference, jsonSchema });
+  // console.log({ reference, jsonSchema });
   if (reference) {
     return getExistingType(reference, isInputType);
   }
@@ -131,9 +131,17 @@ const jsonSchemaTypeToGraphQL = (
   schemaName: string,
   isInputType: boolean
 ) => {
-  console.log({ jsonSchema });
   if (isObjectType(jsonSchema)) {
-    return createGQLObject(jsonSchema, title + "_" + schemaName, isInputType);
+    if (jsonSchema.in == "body" && jsonSchema.name == "body") {
+      return jsonSchemaTypeToGraphQL(
+        title + "_" + schemaName,
+        jsonSchema.schema,
+        schemaName,
+        isInputType
+      );
+    } else {
+      return createGQLObject(jsonSchema, title + "_" + schemaName, isInputType);
+    }
   } else if (jsonSchema.type) {
     return getPrimitiveTypes(jsonSchema);
   }
@@ -161,9 +169,10 @@ export const mapParametersToFields = (
   parameters: Array<EndpointParam>,
   typeName: string
 ) => {
+  // console.log({ parameters, typeName });
   return parameters.reduce((res, param) => {
     const type = jsonSchemaTypeToGraphQL(
-      "param_" + typeName,
+      typeName,
       param.jsonSchema,
       param.name,
       true
