@@ -51,6 +51,10 @@ paths:
         schema:
           "$ref": "#/definitions/Pet"
       responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/Pet"
         '405':
           description: Invalid input
       security:
@@ -77,6 +81,10 @@ paths:
         schema:
           "$ref": "#/definitions/Pet"
       responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/Pet"
         '400':
           description: Invalid ID supplied
         '404':
@@ -215,6 +223,10 @@ paths:
         required: false
         type: string
       responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/Pet"
         '405':
           description: Invalid input
       security:
@@ -242,6 +254,11 @@ paths:
         type: integer
         format: int64
       responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/Pet"
+
         '400':
           description: Invalid ID supplied
         '404':
@@ -264,7 +281,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            type: object
+            "$ref": "#/definitions/Pet"
             additionalProperties:
               type: integer
               format: int32
@@ -342,6 +359,10 @@ paths:
         minimum: 1
         format: int64
       responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/Order"
         '400':
           description: Invalid ID supplied
         '404':
@@ -364,8 +385,11 @@ paths:
         schema:
           "$ref": "#/definitions/User"
       responses:
-        default:
+        '200':
           description: successful operation
+          schema:
+            "$ref": "#/definitions/User"
+
   "/user/createWithArray":
     post:
       tags:
@@ -386,8 +410,12 @@ paths:
           items:
             "$ref": "#/definitions/User"
       responses:
-        default:
+        '200':
           description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/User"
   "/user/createWithList":
     post:
       tags:
@@ -408,8 +436,12 @@ paths:
           items:
             "$ref": "#/definitions/User"
       responses:
-        default:
+        '200':
           description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/User"
   "/user/login":
     get:
       tags:
@@ -435,7 +467,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            type: string
+            "$ref": "#/definitions/User"
           headers:
             X-Rate-Limit:
               type: integer
@@ -459,8 +491,10 @@ paths:
       - application/json
       parameters: []
       responses:
-        default:
+        '200':
           description: successful operation
+          schema:
+            "$ref": "#/definitions/User"
   "/user/{username}":
     get:
       tags:
@@ -508,6 +542,10 @@ paths:
         schema:
           "$ref": "#/definitions/User"
       responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/User"
         '400':
           description: Invalid user supplied
         '404':
@@ -528,6 +566,10 @@ paths:
         required: true
         type: string
       responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/User"
         '400':
           description: Invalid username supplied
         '404':
