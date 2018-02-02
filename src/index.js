@@ -22,9 +22,9 @@ const schemaFromEndpoints = (endpoints: Endpoints) => {
           name: "viewer",
           fields: () => {
             const queryFields = getQueriesFields(endpoints, false);
-            if (!Object.keys(queryFields).length) {
-              throw new Error("Did not find any GET endpoints");
-            }
+            // if (!Object.keys(queryFields).length) {
+            //   throw new Error("Did not find any GET endpoints");
+            // }
             return queryFields;
           }
         }),
