@@ -24,6 +24,7 @@ const isObjectType = jsonSchema =>
 const getTypeNameFromRef = (ref: string, isInputType: boolean) => {
   const baseTypeName = ref.replace("#/definitions/", "").replace(/\//, "_");
   // return isInputType ? baseTypeName + "Input" : baseTypeName;
+  console.log({ ref, baseTypeName });
   return isInputType ? baseTypeName : baseTypeName;
 };
 
@@ -35,7 +36,7 @@ const getExistingType = (ref: string, isInputType: boolean) => {
   // console.log({ allSchema, __allTypes });
   if (!__allTypes[typeName]) {
     const schema = allSchema.definitions[baseTypeName];
-    // console.log({ typeName, schema });
+    console.log({ typeName, schema });
     if (!schema) {
       throw new Error(`Definition ${baseTypeName} was not found in schema`);
     }
@@ -65,7 +66,7 @@ export const createGQLObject = (
   }
 
   const reference = getRefProp(jsonSchema);
-  // console.log({ reference, jsonSchema });
+  console.log({ reference, jsonSchema });
   if (reference) {
     return getExistingType(reference, isInputType);
   }

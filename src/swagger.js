@@ -37,7 +37,7 @@ const getSuccessResponse = (responses: Responses) => {
 export const loadSchema = (pathToSchema: string) =>
   refParser.bundle(pathToSchema);
 
-const replaceOddChars = str => str.replace(/[^_a-zA-Z0-9]/g, "_");
+const replaceOddChars = str => str && str.replace(/[^_a-zA-Z0-9]/g, "_");
 
 /**
  * Going throw schema and grab routes
@@ -56,6 +56,7 @@ export const getAllEndPoints = (
       const parameters = obj.parameters
         ? obj.parameters.map(param => {
             const type = param.type;
+            console.log({ param });
             return {
               name: replaceOddChars(param.name),
               type,
